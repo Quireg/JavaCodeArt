@@ -17,8 +17,8 @@ public class Knife extends Weapon{
     }
 
     public int getDamage() {
-        damage = damage + (-2 + (int)(Math.random() * ((2 - (-2)) + 1)));
-        return damage;
+        int tempdamage = damage + (-2 + (int)(Math.random() * ((2 - (-2)) + 1)));
+        return tempdamage;
     }
 
 
@@ -31,3 +31,4 @@ public class Knife extends Weapon{
         this.whoCanUse = whoCanUse;
     }
 }
+
