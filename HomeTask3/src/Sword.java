@@ -8,7 +8,16 @@ import java.util.ArrayList;
  * To change this template use File | Settings | File Templates.
  */
 public class Sword extends Weapon {
-    private String name = "Sword";
-    private int damage = (5 + (int)(Math.random() * ((15 - 5) + 1)));
-    private ArrayList<Pers> whoCanUse;
+    protected Sword() {
+        super("Sword", 25 , new String[]{"elf", "troll"}, 2);
+
+
+    }
+
+
+
+    public int getDamage() {
+        int tempdamage = damage + (-5 + (int)(Math.random() * ((5 - (-5)) + 1)));
+        return tempdamage;
+    }
 }

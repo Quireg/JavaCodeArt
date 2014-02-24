@@ -11,9 +11,9 @@ public class Elf extends Pers {
     public void attack(Pers enemy) {
         if(getWeaponEquipped() != null){
             // (8 + (int)(Math.random() * ((12 - 8) + 1)))
-            int damage1 = getWeaponEquipped().getDamage();
+            int damage1 = getWeaponEquipped().getDamage()*getWeaponEquipped().getAttackSpeed();
             enemy.setHitpoints(enemy.getHitpoints() - damage1);
-            System.out.println(getName() + " hit for "+ damage1 + " damage");
+            System.out.println(getName() + " hit " +getWeaponEquipped().getAttackSpeed()+" times for "+ damage1 + " damage");
 
         } else {
             System.out.println("Give me a weapon!");

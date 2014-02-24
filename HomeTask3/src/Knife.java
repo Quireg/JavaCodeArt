@@ -4,17 +4,18 @@ import java.util.ArrayList;
  * Created by Quireg on 19.02.14.
  */
 public class Knife extends Weapon{
-    private String name = "Knife";
-    private int damage = 10;
-    private ArrayList<Pers> whoCanUse;
 
-    public String getName() {
-        return name;
+
+
+
+
+    protected Knife() {
+        super("Knife", 10, new String[]{"elf", "troll"}, 3);
+
+
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+
 
     public int getDamage() {
         int tempdamage = damage + (-2 + (int)(Math.random() * ((2 - (-2)) + 1)));
@@ -23,12 +24,6 @@ public class Knife extends Weapon{
 
 
 
-    public ArrayList<Pers> getWhoCanUse() {
-        return whoCanUse;
-    }
 
-    public void setWhoCanUse(ArrayList<Pers> whoCanUse) {
-        this.whoCanUse = whoCanUse;
-    }
 }
 

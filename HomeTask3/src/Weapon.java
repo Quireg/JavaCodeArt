@@ -1,9 +1,20 @@
+import java.util.ArrayList;
+
 /**
  * Created by Quireg on 19.02.14.
  */
 abstract public class Weapon {
     private String name;
-    private int damage;
+    protected int damage;
+    private String[] whoCanUse;
+    private int attackSpeed = 3;
+
+    protected Weapon(String name, int damage, String[]  whoCanUse, int attackSpeed) {
+        this.name = name;
+        this.damage = damage;
+        this.whoCanUse = whoCanUse;
+        this.attackSpeed = attackSpeed;
+    }
 
     public String getName() {
         return name;
@@ -13,11 +24,11 @@ abstract public class Weapon {
         this.name = name;
     }
 
-    public int getDamage() {
-        return damage;
+    public int getAttackSpeed() {
+        return attackSpeed;
     }
 
-    public void setDamage(int damage) {
-        this.damage = damage;
-    }
+    abstract public int getDamage();
+
+
 }
