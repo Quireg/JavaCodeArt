@@ -14,9 +14,11 @@ abstract public class Pers {
         this.hitpoints = hitpoints;
     }
 
+
+
     abstract public void attack(Pers enemy);
 
-    public void equipWeapon(){
+    public void equipWeapon() {
         System.out.println();
         System.out.println("Choose weapon for " + getName());
         System.out.println("1 - Knife");
@@ -28,19 +30,18 @@ abstract public class Pers {
 
         Scanner enterWeapon = new Scanner(System.in);
         String weaponNumber = enterWeapon.nextLine();
-        if(weaponNumber.equals("1")){
+        if (weaponNumber.equals("1")) {
             setWeaponEquipped(new Knife());
             System.out.println(getName() + " took " + getWeaponEquipped().getName());
-        }else if(weaponNumber.equals("2"))
-            {
+        } else if (weaponNumber.equals("2")) {
             weaponEquipped = new Bow();
-        }else if(weaponNumber.equals("3")){
+        } else if (weaponNumber.equals("3")) {
             weaponEquipped = new Crossbow();
-        }else if(weaponNumber.equals("4")){
+        } else if (weaponNumber.equals("4")) {
             weaponEquipped = new Sword();
-        }else if(weaponNumber.equals("5")){
+        } else if (weaponNumber.equals("5")) {
             weaponEquipped = new Stuff();
-        }else if(weaponNumber.equals("6")){
+        } else if (weaponNumber.equals("6")) {
             weaponEquipped = new Club();
         }
     }
