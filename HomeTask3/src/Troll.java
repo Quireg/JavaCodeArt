@@ -1,8 +1,8 @@
 /**
  * Created by Quireg on 24.02.14.
  */
-public class Wizard extends Pers {
-    protected Wizard(String name) {
+public class Troll extends Pers {
+    protected Troll(String name) {
         super(name, 80);
     }
 

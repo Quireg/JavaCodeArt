@@ -1,9 +1,9 @@
 /**
  * Created by Quireg on 24.02.14.
  */
-public class Wizard extends Pers {
-    protected Wizard(String name) {
-        super(name, 80);
+public class Dwarf extends Pers {
+    protected Dwarf(String name) {
+        super(name, 160);
     }
 
     @Override

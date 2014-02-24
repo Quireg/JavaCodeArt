@@ -14,40 +14,7 @@ abstract public class Pers {
         this.hitpoints = hitpoints;
     }
 
-    public Pers createPers() {
-        System.out.println("Character create");
-        System.out.println("Please enter character name: ");
-        Scanner scanName = new Scanner(System.in);
-        String scanNameResult = scanName.nextLine();
-        System.out.println("Please choose character class");
-        System.out.println("1 - Elf");
-        System.out.println("2 - Wizard");
-        System.out.println("3 - Troll");
-        System.out.println("4 - Paladin");
-        System.out.println("5 - Dwarf");
-        Scanner scanClass = new Scanner(System.in);
-        String scanClassResult = scanClass.nextLine();
-        if (scanClassResult.equals("1")) {
-            Pers result = new Elf(scanNameResult);
-            return result;
-        } else if (scanClassResult.equals("2")) {
-            Pers result = new Wizard(scanNameResult);
-            return result;
-        }else if (scanClassResult.equals("3")) {
-            Pers result = new Troll(scanNameResult);
-            return result;
-        }else if (scanClassResult.equals("2")) {
-            Pers result = new Paladin(scanNameResult);
-            return result;
-        }else if (scanClassResult.equals("2")) {
-            Pers result = new Dwarf(scanNameResult);
-            return result;
-        }else {
-            System.out.println("Invalid option");
-            createPers();
-        }
-        return null;
-    }
+
 
     abstract public void attack(Pers enemy);
 
