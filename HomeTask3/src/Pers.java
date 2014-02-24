@@ -14,9 +14,44 @@ abstract public class Pers {
         this.hitpoints = hitpoints;
     }
 
+    public Pers createPers() {
+        System.out.println("Character create");
+        System.out.println("Please enter character name: ");
+        Scanner scanName = new Scanner(System.in);
+        String scanNameResult = scanName.nextLine();
+        System.out.println("Please choose character class");
+        System.out.println("1 - Elf");
+        System.out.println("2 - Wizard");
+        System.out.println("3 - Troll");
+        System.out.println("4 - Paladin");
+        System.out.println("5 - Dwarf");
+        Scanner scanClass = new Scanner(System.in);
+        String scanClassResult = scanClass.nextLine();
+        if (scanClassResult.equals("1")) {
+            Pers result = new Elf(scanNameResult);
+            return result;
+        } else if (scanClassResult.equals("2")) {
+            Pers result = new Wizard(scanNameResult);
+            return result;
+        }else if (scanClassResult.equals("3")) {
+            Pers result = new Troll(scanNameResult);
+            return result;
+        }else if (scanClassResult.equals("2")) {
+            Pers result = new Paladin(scanNameResult);
+            return result;
+        }else if (scanClassResult.equals("2")) {
+            Pers result = new Dwarf(scanNameResult);
+            return result;
+        }else {
+            System.out.println("Invalid option");
+            createPers();
+        }
+        return null;
+    }
+
     abstract public void attack(Pers enemy);
 
-    public void equipWeapon(){
+    public void equipWeapon() {
         System.out.println();
         System.out.println("Choose weapon for " + getName());
         System.out.println("1 - Knife");
@@ -28,19 +63,18 @@ abstract public class Pers {
 
         Scanner enterWeapon = new Scanner(System.in);
         String weaponNumber = enterWeapon.nextLine();
-        if(weaponNumber.equals("1")){
+        if (weaponNumber.equals("1")) {
             setWeaponEquipped(new Knife());
             System.out.println(getName() + " took " + getWeaponEquipped().getName());
-        }else if(weaponNumber.equals("2"))
-            {
+        } else if (weaponNumber.equals("2")) {
             weaponEquipped = new Bow();
-        }else if(weaponNumber.equals("3")){
+        } else if (weaponNumber.equals("3")) {
             weaponEquipped = new Crossbow();
-        }else if(weaponNumber.equals("4")){
+        } else if (weaponNumber.equals("4")) {
             weaponEquipped = new Sword();
-        }else if(weaponNumber.equals("5")){
+        } else if (weaponNumber.equals("5")) {
             weaponEquipped = new Stuff();
-        }else if(weaponNumber.equals("6")){
+        } else if (weaponNumber.equals("6")) {
             weaponEquipped = new Club();
         }
     }
