@@ -6,14 +6,15 @@ import java.util.ArrayList;
 public class School {
     private String name;
     private ArrayList<SchoolClass> listClasses;
-    public int oLevelSchool(){
+
+    public int oLevelSchool() {
         int tempOlevel = 0;
 
 
-        for (int i = 0; i < getListClasses().size() ; i++) {
-                tempOlevel += getListClasses().get(i).oLevel();
+        for (int i = 0; i < getListClasses().size(); i++) {
+            tempOlevel += getListClasses().get(i).oLevel();
         }
-        int result = tempOlevel/(getListClasses().size());
+        int result = tempOlevel / (getListClasses().size());
 
         return result;
     }
