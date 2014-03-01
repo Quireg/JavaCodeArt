@@ -7,7 +7,7 @@ public class Main {
 
         Pers  aldalerk = new Elf("Adalerk");
 
-        Pers quireg = new Elf("Quireg");
+        Pers quireg = new Dwarf("Quireg");
 
         Battle battle1 = new Battle();
         battle1.letsBattle(aldalerk, quireg);

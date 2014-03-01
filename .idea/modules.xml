@@ -12,12 +12,14 @@
       <module fileurl="file://$PROJECT_DIR$/ReadTheFileAndCountWords/ReadTheFileAndCountWords.iml" filepath="$PROJECT_DIR$/ReadTheFileAndCountWords/ReadTheFileAndCountWords.iml" />
       <module fileurl="file://$PROJECT_DIR$/ReportsCity/ReportsCity.iml" filepath="$PROJECT_DIR$/ReportsCity/ReportsCity.iml" />
       <module fileurl="file://$PROJECT_DIR$/ScannerForLongestWord/ScannerForLongestWord.iml" filepath="$PROJECT_DIR$/ScannerForLongestWord/ScannerForLongestWord.iml" />
+      <module fileurl="file://$PROJECT_DIR$/School/School.iml" filepath="$PROJECT_DIR$/School/School.iml" />
       <module fileurl="file://$PROJECT_DIR$/Shop/Shop.iml" filepath="$PROJECT_DIR$/Shop/Shop.iml" />
       <module fileurl="file://$PROJECT_DIR$/HomeTask1/Task1.1/Task1.1.iml" filepath="$PROJECT_DIR$/HomeTask1/Task1.1/Task1.1.iml" />
       <module fileurl="file://$PROJECT_DIR$/HomeTask1/Task1.2/Task1.2.iml" filepath="$PROJECT_DIR$/HomeTask1/Task1.2/Task1.2.iml" />
       <module fileurl="file://$PROJECT_DIR$/HomeTask2/Task2.1/Task2.1.iml" filepath="$PROJECT_DIR$/HomeTask2/Task2.1/Task2.1.iml" />
       <module fileurl="file://$PROJECT_DIR$/HomeTask2/Task2.2/Task2.2.iml" filepath="$PROJECT_DIR$/HomeTask2/Task2.2/Task2.2.iml" />
       <module fileurl="file://$PROJECT_DIR$/Vagons/Vagons.iml" filepath="$PROJECT_DIR$/Vagons/Vagons.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Work1/Work1.iml" filepath="$PROJECT_DIR$/Work1/Work1.iml" />
     </modules>
   </component>
 </project>

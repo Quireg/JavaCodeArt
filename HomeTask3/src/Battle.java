@@ -2,8 +2,8 @@
 public class Battle {
 
     public Pers letsBattle(Pers char1, Pers char2) {
-        char1.equipWeapon();
-        char2.equipWeapon();
+//        char1.equipWeapon();
+//        char2.equipWeapon();
         while (char1.getHitpoints() > 0 && char2.getHitpoints() > 0) {
             char1.attack(char2);
             if (char2.getHitpoints() <= 0) {
