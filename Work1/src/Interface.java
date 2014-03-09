@@ -1,6 +1,8 @@
 
 public interface Interface {
     int findSome();
-    static int k = 12;
+    int k =12;
+    public static String name = "asd";
+
     int findSome0(int h);
 }
