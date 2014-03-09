@@ -1,11 +1,12 @@
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * Created by Admin on 08.02.14.
  */
-public class Main {
-    public static void main(String[] args) {
+public class Main{
+    public static void main (String[] args) {
         Company intel = new Company("Intel", new ArrayList<Employee>());
         Admin a0 = new Admin("Kolia", "Ivanov", 23, 2000, 20, "Carlsberg");
         Admin a1 = new Admin("Kolia", "Loboda", 23, 2200, 15, "Obolon");

@@ -23,8 +23,13 @@ public class Main {
         str.add(76);
         str.add(1);
         str.add(23);
-        MyCompar compar = new MyCompar();
-        Collections.sort(str);
+
+        Collections.sort(str, new Comparator<Integer>() {
+            @Override
+            public int compare(Integer o1, Integer o2) {
+                return o1-o2;
+            }
+        });
 
         for (int i = 0; i < str.size(); i++) {
             System.out.println(str.get(i));
