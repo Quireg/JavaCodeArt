@@ -1,0 +1,32 @@
+Realise program of Internet shop(using OOP principles).
+
+The several type of goods in the shop
+
+1. Notebook (model, weight, cost, manufacturer, RAM, OS, diagonal, video)
+
+2. Mobile telephone (model, weight, cost, manufacturer, type, OS, size, wifi)
+
+3. Printers (model, weight, cost, manufacturer, type, color)
+
+
+
+
+All goods save in file(or maybe several files)FOR MORE interesting work you can use MY SQL DB
+
+So you must create console possibility to communicate user with shop. When start program, user can input different command
+
+- help
+        to see all commands
+- price
+        load and view all information in console(like table)
+- basket
+        see all goods in the user basket
+-buy <id>
+        load goods from file by id and pass it to the basket
+-commit
+        generate purchase report to the console and file
+-clean
+        clean all goods from basket
+-exit
+
+In this task you need use OOP principles(strongly require)
