@@ -1,9 +1,4 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
 
@@ -16,6 +11,7 @@ public class Main {
 
 
         ArrayList<Integer> str = new ArrayList<Integer>();
+        LinkedList<Integer> str1 = new LinkedList<Integer>();
         str.add(12);
         str.add(421);
         str.add(23);
@@ -34,6 +30,9 @@ public class Main {
         for (int i = 0; i < str.size(); i++) {
             System.out.println(str.get(i));
 
+        }
+        for (Integer s : str){
+            System.out.println(s);
         }
 
     }

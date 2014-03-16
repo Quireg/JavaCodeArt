@@ -23,6 +23,7 @@ public class Database1 {
         }
         Statement stmt = conn.createStatement();
         ResultSet rs = stmt.executeQuery(query);
+
         ResultSetMetaData rsmd = rs.getMetaData();
         int columnsNumber = rsmd.getColumnCount();
         while (rs.next()) {
