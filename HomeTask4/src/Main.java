@@ -8,8 +8,12 @@ import java.util.ArrayList;
  */
 public class Main {
     public static void main(String[] args) throws SQLException {
-        Database1.createConnection("SELECT * FROM Notebooks");
+        ArrayList<Good> temp  =  Database1.createConnection("Notebooks");
+        for (int i = 0; i < temp.size() ; i++) {
+            System.out.println(temp.get(i).getModel());
 
+        }
+//          MyFrame.MyFrame();
 
 
 //        Shop shop = new Shop();

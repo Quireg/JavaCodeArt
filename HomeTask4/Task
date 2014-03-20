@@ -2,9 +2,9 @@ Realise program of Internet shop(using OOP principles).
 
 The several type of goods in the shop
 
-1. Notebook (model, weight, cost, manufacturer, RAM, OS, diagonal, video)
+1. Notebook (model, weight, cost, manufacturer, type, OS, size, wifi)
 
-2. Mobile telephone (model, weight, cost, manufacturer, type, OS, size, wifi)
+2. Mobile telephone (model, weight, cost, manufacturer, RAM, OS, diagonal, video)
 
 3. Printers (model, weight, cost, manufacturer, type, color)
 
