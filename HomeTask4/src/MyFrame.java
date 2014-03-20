@@ -1,7 +1,13 @@
+import javafx.scene.control.Cell;
+
 import javax.swing.*;
+import javax.swing.event.TableModelListener;
+import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class MyFrame {
 
@@ -38,8 +44,6 @@ public class MyFrame {
 //                4, 4);       //xPad, yPad
 
 
-
-
         JPanel panel1 = new JPanel();
         JButton button0 = new JButton("MyBasket");
         button0.addActionListener(new ActionListener() {
@@ -58,24 +62,200 @@ public class MyFrame {
                 JFrame frame = new JFrame();
                 JPanel panel = new JPanel();
 
-                Object[][] data = {
-                        {"11", "12", "13", "14"},
-                        {"21", "22", "23", "24"},
-                        {"31", "32", "33", "34"}
-
-                };
-
-                Object[] clNames = {"FirstName", "SecondName", "Age", "Salary"};
-
-                JTable table = new JTable(data, clNames);
 
 
-                panel.add(table);
+                final ArrayList<Good> nodes = new ArrayList<Good>();
+
+
+                try {
+                    ArrayList<Good> temp1 = Database1.createConnection("Notebooks");
+                    for (int i = 0; i < temp1.size(); i++) {
+                        nodes.add(temp1.get(i));
+                    }
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+                try {
+                    ArrayList<Good> temp2 = Database1.createConnection("Cellphones");
+                    for (int i = 0; i < temp2.size(); i++) {
+                        nodes.add(temp2.get(i));
+                    }
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+                try {
+                    ArrayList<Good> temp3 = Database1.createConnection("Printers");
+                    for (int i = 0; i < temp3.size(); i++) {
+                        nodes.add(temp3.get(i));
+                    }
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+
+
+                JTable table = new JTable(new TableModel() {
+                    @Override
+                    public int getRowCount() {
+
+                        return nodes.size();
+                    }
+
+                    @Override
+                    public int getColumnCount() {
+                        return 14;
+                    }
+
+                    @Override
+                    public String getColumnName(int columnIndex) {
+                        String[] columses = {"Good", "ID", "Model", "Manufact.", "Weight", "Cost", "Type", "OS", "RAM", "color", "Size", "Diagonal", "Wi-Fi", "Video"};
+
+                        return columses[columnIndex];
+                    }
+
+                    @Override
+                    public Class<?> getColumnClass(int columnIndex) {
+                        return Good.class;
+                    }
+
+                    @Override
+                    public boolean isCellEditable(int rowIndex, int columnIndex) {
+                        return false;
+                    }
+
+                    @Override
+                    public Object getValueAt(int rowIndex, int columnIndex) {
+                        Good k = nodes.get(rowIndex);
+                        if (k instanceof Printer) {
+                            if(columnIndex == 0){
+                                return "Printer";
+                            }else if (columnIndex == 1) {
+                                return k.getGoodid();
+                            } else if (columnIndex == 2) {
+                                return k.getModel();
+                            } else if (columnIndex == 3) {
+                                return k.getManufacturer();
+                            } else if (columnIndex == 4) {
+                                return k.getWeight();
+                            } else if (columnIndex == 5) {
+                                return k.getCost();
+                            } else if (columnIndex == 6) {
+                                return ((Printer) k).getType();
+                            } else if (columnIndex == 7) {
+                                return null;
+                            } else if (columnIndex == 8) {
+                                return null;
+                            } else if (columnIndex == 9) {
+                                return ((Printer) k).getColor();
+                            } else if (columnIndex == 10) {
+                                return null;
+                            } else if (columnIndex == 11) {
+                                return null;
+                            } else if (columnIndex == 12) {
+                                return null;
+                            } else if (columnIndex == 13) {
+                                return null;
+                            }
+                        }
+                            else if (k instanceof Notebook) {
+                                if(columnIndex == 0){
+                                    return "Notebook";
+                                }else if (columnIndex == 1) {
+                                    return k.getGoodid();
+                                } else if (columnIndex == 2) {
+                                    return k.getModel();
+                                } else if (columnIndex == 3) {
+                                    return k.getManufacturer();
+                                } else if (columnIndex == 4) {
+                                    return k.getWeight();
+                                } else if (columnIndex == 5) {
+                                    return k.getCost();
+                                } else if (columnIndex == 6) {
+                                    return ((Notebook) k).getType();
+                                } else if (columnIndex == 7) {
+                                    return ((Notebook) k).getOs();
+                                } else if (columnIndex == 8) {
+                                    return null;
+                                } else if (columnIndex == 9) {
+                                    return null;
+                                } else if (columnIndex == 10) {
+                                    return ((Notebook) k).getSize();
+                                } else if (columnIndex == 11) {
+                                    return null;
+                                } else if (columnIndex == 12) {
+                                    return ((Notebook) k).isWifi();
+                                } else if (columnIndex == 13) {
+                                    return null;
+                                }
+                            }
+                         else if (k instanceof Cellphone) {
+                            if(columnIndex == 0){
+                                return "Cellphone";
+                            }else if (columnIndex == 1) {
+                                return k.getGoodid();
+                            } else if (columnIndex == 2) {
+                                return k.getModel();
+                            } else if (columnIndex == 3) {
+                                return k.getManufacturer();
+                            } else if (columnIndex == 4) {
+                                return k.getWeight();
+                            } else if (columnIndex == 5) {
+                                return k.getCost();
+                            } else if (columnIndex == 6) {
+                                return null;
+                            } else if (columnIndex == 7) {
+                                return ((Cellphone) k).getOs();
+                            } else if (columnIndex == 8) {
+                                return ((Cellphone) k).getRam();
+                            } else if (columnIndex == 9) {
+                                return null;
+                            } else if (columnIndex == 10) {
+                                return null;
+                            } else if (columnIndex == 11) {
+                                return ((Cellphone) k).getDiagonal();
+                            } else if (columnIndex == 12) {
+                                return null;
+                            } else if (columnIndex == 13) {
+                                return ((Cellphone) k).isVideo();
+                            }
+                        }
+                        return null;
+
+                    }
+
+
+                    @Override
+                    public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+
+                    }
+
+                    @Override
+                    public void addTableModelListener(TableModelListener l) {
+
+                    }
+
+                    @Override
+                    public void removeTableModelListener(TableModelListener l) {
+
+                    }
+                });
+                JScrollPane areaScrollPane = new JScrollPane(table);
+                areaScrollPane.setVerticalScrollBarPolicy(
+                        JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+                areaScrollPane.setHorizontalScrollBarPolicy(
+                        JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+                areaScrollPane.setPreferredSize(new
+
+                        Dimension(1500, 500)
+
+                );
+
+
+
                 frame.add(panel);
-                frame.setSize(300, 300);
+                panel.add(areaScrollPane);
+                frame.setSize(1500, 500);
                 frame.setVisible(true);
                 frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-
 
 
             }
@@ -91,10 +271,6 @@ public class MyFrame {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     }
-
-}
-
-class   Backet{
 
 }
 
@@ -117,12 +293,12 @@ class SpringUtilities {
      * preferred width and height of the components.
      * The parent is made just big enough to fit them all.
      *
-     * @param rows number of rows
-     * @param cols number of columns
+     * @param rows     number of rows
+     * @param cols     number of columns
      * @param initialX x location to start the grid at
      * @param initialY y location to start the grid at
-     * @param xPad x padding between cells
-     * @param yPad y padding between cells
+     * @param xPad     x padding between cells
+     * @param yPad     y padding between cells
      */
     public static void makeGrid(Container parent,
                                 int rows, int cols,
@@ -130,7 +306,7 @@ class SpringUtilities {
                                 int xPad, int yPad) {
         SpringLayout layout;
         try {
-            layout = (SpringLayout)parent.getLayout();
+            layout = (SpringLayout) parent.getLayout();
         } catch (ClassCastException exc) {
             System.err.println("The first argument to makeGrid must use SpringLayout.");
             return;
@@ -220,12 +396,12 @@ class SpringUtilities {
      * height is similarly determined for each row.
      * The parent is made just big enough to fit them all.
      *
-     * @param rows number of rows
-     * @param cols number of columns
+     * @param rows     number of rows
+     * @param cols     number of columns
      * @param initialX x location to start the grid at
      * @param initialY y location to start the grid at
-     * @param xPad x padding between cells
-     * @param yPad y padding between cells
+     * @param xPad     x padding between cells
+     * @param yPad     y padding between cells
      */
     public static void makeCompactGrid(Container parent,
                                        int rows, int cols,
@@ -233,7 +409,7 @@ class SpringUtilities {
                                        int xPad, int yPad) {
         SpringLayout layout;
         try {
-            layout = (SpringLayout)parent.getLayout();
+            layout = (SpringLayout) parent.getLayout();
         } catch (ClassCastException exc) {
             System.err.println("The first argument to makeCompactGrid must use SpringLayout.");
             return;
