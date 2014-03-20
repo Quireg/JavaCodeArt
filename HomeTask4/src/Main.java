@@ -19,9 +19,8 @@ public class Main {
 
         }for (int i = 0; i < temp2.size() ; i++) {
             System.out.println(temp2.get(i).getModel());
-
         }
-//          MyFrame.MyFrame();
+          MyFrame.MyFrame();
 
 
 //        Shop shop = new Shop();
