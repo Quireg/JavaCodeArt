@@ -16,19 +16,19 @@ public class Database1 {
 
 
         Connection conn = dataSource.getConnection();
-        if (conn == null) {
-            System.out.println("No connection");
-        } else {
-            System.out.println("Connected");
-        }
+//        if (conn == null) {
+//            System.out.println("No connection");
+//        } else {
+//            System.out.println("Connected");
+//        }
         ArrayList<Good> goods = new ArrayList<Good>();
 
         if (table.equals("Notebooks")) {
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM Notebooks");
 
-            ResultSetMetaData rsmd = rs.getMetaData();
-            int columnsNumber = rsmd.getColumnCount();
+//            ResultSetMetaData rsmd = rs.getMetaData();
+//            int columnsNumber = rsmd.getColumnCount();
 
             while (rs.next()) {
                 boolean bool;
@@ -51,8 +51,8 @@ public class Database1 {
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM Cellphones");
 
-            ResultSetMetaData rsmd = rs.getMetaData();
-            int columnsNumber = rsmd.getColumnCount();
+//            ResultSetMetaData rsmd = rs.getMetaData();
+//            int columnsNumber = rsmd.getColumnCount();
             while (rs.next()) {
                 boolean bool;
                 if (rs.getString(8).equals("1")) {
@@ -74,15 +74,9 @@ public class Database1 {
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM Printers");
 
-            ResultSetMetaData rsmd = rs.getMetaData();
-            int columnsNumber = rsmd.getColumnCount();
+//            ResultSetMetaData rsmd = rs.getMetaData();
+//            int columnsNumber = rsmd.getColumnCount();
             while (rs.next()) {
-                boolean bool;
-                if (rs.getString(8).equals("1")) {
-                    bool = true;
-                } else {
-                    bool = false;
-                }
                 goods.add(new Printer(rs.getString(2), Integer.parseInt(rs.getString(6)), Integer.parseInt(rs.getString(3)),
                         rs.getString(4), Integer.parseInt(rs.getString(1)), rs.getString(5), rs.getString(7)));
             }
