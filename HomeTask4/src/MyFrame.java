@@ -245,7 +245,7 @@ public class MyFrame {
                         JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
                 areaScrollPane.setPreferredSize(new
 
-                        Dimension(1500, 500)
+                        Dimension(1200, 500)
 
                 );
 
@@ -253,7 +253,7 @@ public class MyFrame {
 
                 frame.add(panel);
                 panel.add(areaScrollPane);
-                frame.setSize(1500, 500);
+                frame.setSize(1200, 500);
                 frame.setVisible(true);
                 frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 

@@ -8,12 +8,17 @@ public class Main {
 
     public static void main(String[] args) throws AuthenticationFailedException {
     Scanner scanner1 = new Scanner(System.in);
+        System.out.println("Enter Login");
+        String login = scanner1.nextLine();
     Scanner scanner2 = new Scanner(System.in);
-    String credentials = scanner1.nextLine() + ":" + scanner2.nextLine();
+        System.out.println("Enter Password");
+        String password = scanner2.nextLine();
+
+    String credentials = login + ":" + password;
         checkAuth(credentials);
     }
     public static ArrayList<String> getPass(){
-        File file = new File("C:\\Users\\Admin\\IdeaProjects\\JavaCodeArt\\Exception\\temp");
+        File file = new File("C:\\Users\\Quireg\\IdeaProjects\\JavaCodeArt\\Exception\\temp");
         ArrayList<String> str = new ArrayList<>();
         try {
             Scanner scanner = new Scanner(file);
@@ -26,7 +31,7 @@ public class Main {
         }
         return str;
     }
-    public static void checkAuth(String loginPass) throws AuthenticationFailedException {
+    public static void checkAuth(String loginPass) {
        String[] strings =  loginPass.split(":");
 
             for (int i = 0; i < getPass().size(); i++) {
@@ -36,7 +41,11 @@ public class Main {
                     return;
                 }
             }
+        try {
             throw new AuthenticationFailedException();
+        } catch (AuthenticationFailedException e) {
+            e.printStackTrace();
+        }
 
     }
 
