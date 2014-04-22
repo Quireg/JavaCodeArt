@@ -1,8 +1,5 @@
 package model;
 
-import javax.xml.bind.annotation.XmlRootElement;
-
-@XmlRootElement(name = "company")
 public class Company {
     private String name;
     private String address;
