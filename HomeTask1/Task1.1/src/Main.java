@@ -48,7 +48,7 @@ public class Main {
 
 
         Company intel = new Company();
-       ArrayList<Employee> employees = new ArrayList<Employee>();
+        ArrayList<Employee> employees = new ArrayList<Employee>();
 
 
         intel.setEmployees(employees);
@@ -58,16 +58,16 @@ public class Main {
         intel.getEmployees().add(katia);
         intel.getEmployees().add(viktor);
 
-        intel.showCompanyList();
+//        intel.showCompanyList();
         intel.showNameStartingWithPrefix("М");
-        intel.showNameLetterNumber(5);
-        intel.sortManBySalary();
-        intel.sortWomanBySalary();
-        intel.report();
-        intel.fire(false);
-        intel.showCompanyList();
-        intel.raiseSalary(4000, true);
-        intel.showCompanyList();
+//        intel.showNameLetterNumber(5);
+//        intel.sortManBySalary();
+//        intel.sortWomanBySalary();
+//        intel.report();
+//        intel.fire(false);
+//        intel.showCompanyList();
+//        intel.raiseSalary(4000, true);
+//        intel.showCompanyList();
 
 
     }

@@ -1,8 +1,6 @@
 import java.util.ArrayList;
 
-/**
- * Created by Admin on 31.01.14.
- */
+
 public class Company {
     private String name;
     private String address;
