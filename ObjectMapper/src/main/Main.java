@@ -18,7 +18,8 @@ public class Main {
         User user = new User("ivan", "ivanov", 12, 123);
         User user1 = new User("ivan", "ivan2ov", 12, 123);
         Company company = new Company("intel", "metalistov 3");
-        load(1, User.class);
+        User i = load(1, User.class);
+        System.out.println(i.getLname());
     }
 
     public static void save(Object obj) throws IOException, IllegalAccessException {
@@ -61,7 +62,7 @@ public class Main {
         fileWriter.close();
     }
 
-    public static <T extends Object> T load(long id, Class<T> incomingClass) throws IOException {
+    public static <T> T load(long id, Class<T> incomingClass) throws IOException, IllegalAccessException {
         File folder = new File("C:\\javatemp\\");
         File[] files = folder.listFiles();
         File tempFile = null;
@@ -74,7 +75,7 @@ public class Main {
             }
         }
         Object temp = null;
-        T result = null;
+        T result = (T) incomingClass;
 
         int linecount = 0;
         int counter = 0;
@@ -98,12 +99,18 @@ public class Main {
 
 
         Field[] fields = incomingClass.getDeclaredFields();
-//
-//        for (Field field : fields) {
-//            field.set(incomingClass);
-//        }
 
 
-        return null;
+//        Class c = Class.forName();
+        incomingClass.getConstructors();
+
+        for (int i = 0; i < incomingClass.getDeclaredFields().length ; i++) {
+                fields[i].setAccessible(true);
+                fields[i].set(incomingClass, futureFields.get(i));
+
+        }
+        temp = fields;
+
+        return (T) temp;
     }
 }
