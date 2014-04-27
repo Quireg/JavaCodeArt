@@ -7,6 +7,9 @@ public class User {
     private int age;
     private int salary;
 
+    public User() {
+    }
+
     public User(String name, String lname, int age, int salary) {
         this.name = name;
         this.lname = lname;
