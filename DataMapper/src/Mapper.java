@@ -14,99 +14,138 @@ public class Mapper implements DataMapper {
 
     public Mapper() throws IOException {
         Properties props = new Properties();
-        props.load(new FileInputStream("config.txt"));
+        props.load(new FileInputStream("C:\\Users\\Quireg\\IdeaProjects\\JavaCodeArt\\DataMapper\\src\\config.txt"));
         this.directory = props.getProperty("directory");
         this.configDirectory = props.getProperty("configDirectory");
         this.counters = props.getProperty("counters");
     }
 
 
-    private File getConfFile(Object obj) throws DataMapperException {
+    private File getConfFile(Class clazz, boolean create) throws DataMapperException {
         File configFolder = new File(configDirectory);
         File[] configFiles = configFolder.listFiles();
-        for (File file : configFiles) {
-            if (file.getName().equals(obj.getClass().getSimpleName() + CONF_EXT)) {
-                return file;
-            } else {
-                File confFile = new File(configDirectory + obj.getClass().getSimpleName() + CONF_EXT);
-                try {
-                    confFile.createNewFile();
-                } catch (IOException e) {
-                    throw new DataMapperException();
-                }
-                return confFile;
-            }
+
+
+        if (configFiles == null && create == true) {
+            configFolder.mkdir();
+
         }
 
+
+        for (File file : configFiles) {
+            if (file.getName().equals(clazz.getSimpleName() + CONF_EXT)) {
+                return file;
+            }
+        }if(create) {
+            File confFile = new File(configDirectory + clazz.getSimpleName() + CONF_EXT);
+            try {
+                confFile.createNewFile();
+                FileWriter fw = new FileWriter(confFile, false);
+                for (Field field : clazz.getDeclaredFields()) {
+                    fw.write(field.getName() + "\n");
+                }
+                fw.close();
+            } catch (IOException e) {
+                throw new DataMapperException();
+            }
+            return confFile;
+        }
         return null;
     }
 
-    private File getDataFile(Object obj) throws DataMapperException {
+    private File getDataFile(Class clazz, boolean create) throws DataMapperException {
         File dataFolder = new File(directory);
         File[] dataFiles = dataFolder.listFiles();
-        if (dataFiles.length == 0) {
-            File dataFile = new File(directory + obj.getClass().getSimpleName() + DATA_EXT);
+        if (dataFiles == null && create) {
+            File dataFile = new File(directory + clazz.getSimpleName() + DATA_EXT);
             try {
+                dataFolder.mkdir();
                 dataFile.createNewFile();
+                return dataFile;
             } catch (IOException e) {
                 throw new DataMapperException();
             }
         } else {
             for (File file : dataFiles) {
-                if (file.getName().equals(obj.getClass().getSimpleName())) {
+                if (file.getName().equals(clazz.getSimpleName() + DATA_EXT)) {
                     return file;
-                } else {
-                    File dataFile = new File(directory + obj.getClass().getSimpleName() + DATA_EXT);
-                    try {
-                        dataFile.createNewFile();
-                    } catch (IOException e) {
-                        throw new DataMapperException();
-                    }
-                    return dataFile;
                 }
             }
-
+            if(create) {
+                File dataFile = new File(directory + clazz.getSimpleName() + DATA_EXT);
+                try {
+                    dataFile.createNewFile();
+                } catch (IOException e) {
+                    throw new DataMapperException();
+                }
+                return dataFile;
+            }
+            return null;
         }
-        return null;
+
+
     }
 
-    private int getLastCounter(Object obj) throws DataMapperException{
+    private int getLastCounter(Class clazz) throws DataMapperException {
         try {
-            Scanner scanCounters = new Scanner(new FileReader(counters));
-            while (scanCounters.hasNextLine()){
-                String line = scanCounters.nextLine();
-                if (line.startsWith(obj.getClass().getSimpleName())){
-                    String[] str = line.split(":");
-                    return Integer.parseInt(str[1]);
+            File countersFile = new File(counters);
+            if (countersFile.exists()) {
+                Scanner scanCounters = new Scanner(new FileReader(counters));
+                if (scanCounters.hasNext()) {
+                    while (scanCounters.hasNextLine()) {
+                        String line = scanCounters.nextLine();
+                        if (line.startsWith(clazz.getSimpleName())) {
+                            String[] str = line.split(":");
+                            return Integer.parseInt(str[1]);
+                        }
+                    }
+
                 }
+
+
             }
+
+            countersFile.createNewFile();
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(countersFile, true));
+            bufferedWriter.write(clazz.getClass().getSimpleName() + ":" + 0 + "\n");
+            bufferedWriter.close();
+            return 0;
         } catch (FileNotFoundException e) {
+            e.printStackTrace();
+
+        } catch (IOException e) {
+            e.printStackTrace();
             throw new DataMapperException();
         }
+
         return 0;
     }
 
-    private void incrementCounter(Object obj)throws DataMapperException{
+    private void incrementCounter(Class clazz) throws DataMapperException {
         try {
-            Scanner scanCounters = new Scanner(new FileReader(counters));
-            while (scanCounters.hasNextLine()){
-                String line = scanCounters.nextLine();
-                if (line.startsWith(obj.getClass().getSimpleName())){
-                    String[] str = line.split(":");
-                    int y = Integer.parseInt(str[1]);
-                    //TODO finalize counters incrementation
-                }
-            }
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(counters));
+            String line;
+            String input = "";
+            while ((line = bufferedReader.readLine()) != null) input += line + '\n';
+            int curCounter = getLastCounter(clazz);
+            int futureCounter = curCounter + 1;
+            input = input.replace(clazz.getSimpleName() + ":" + curCounter, clazz.getSimpleName() + ":" + futureCounter);
+            FileOutputStream File = new FileOutputStream(counters);
+            File.write(input.getBytes());
         } catch (FileNotFoundException e) {
+            e.printStackTrace();
             throw new DataMapperException();
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
     public void save(Object obj) throws DataMapperException {
 
-        File dataFile = getDataFile(obj);
-        File confFile = getConfFile(obj);
-        int counter = getLastCounter(obj);
+        File dataFile = getDataFile(obj.getClass(), true);
+        File confFile = getConfFile(obj.getClass(), true);
+        int counter = getLastCounter(obj.getClass());
         FileWriter fileWriter = null;
         try {
             fileWriter = new FileWriter(dataFile, true);
@@ -124,19 +163,91 @@ public class Mapper implements DataMapper {
             fileWriter.write("\n");
             fileWriter.close();
         } catch (IOException e) {
-            throw  new DataMapperException();
+            e.printStackTrace();
+            throw new DataMapperException();
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
         }
-        incrementCounter(obj);
+        incrementCounter(obj.getClass());
 
     }
 
 
-    public Object load(long id, Class clazz) {
-        return null;
+    public Object load(long id, Class clazz) throws DataMapperException {
+        File dataFile = getDataFile(clazz, false);
+        File confFile = getConfFile(clazz, false);
+        if(dataFile == null | confFile == null){
+            System.out.println("No classes were stored");
+            return null;
+        }
+
+
+        Scanner scanID = null;
+        try {
+            scanID = new Scanner(dataFile);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            throw new DataMapperException();
+        }
+
+        String[] existingValues = null;
+        while (scanID.hasNextLine()) {
+            if (scanID.nextLine().startsWith("ID" + id)) {
+                existingValues = scanID.nextLine().split(":");
+            }
+        }
+
+        Scanner scanner = null;
+        try {
+            scanner = new Scanner(confFile);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            throw  new DataMapperException();
+        }
+        ArrayList<String> arr = new ArrayList<>();
+        while (scanner.hasNextLine()) {
+            arr.add(scanner.nextLine());
+        }
+
+        Object result = null;
+        try {
+            result = clazz.newInstance();
+            for (int i = 0; i < arr.size(); i++) {
+                Field f = clazz.getDeclaredField(arr.get(i));
+                f.setAccessible(true);
+
+                if (f.getType().equals(String.class)) {
+                    f.set(result, existingValues[i+1]);
+                } else if (f.getType().equals(Integer.class)){
+                    f.set(result, Integer.parseInt(existingValues[i+1]));
+                }else if (f.getType().equals(long.class)){
+                    f.set(result, Long.parseLong(existingValues[i+1]));
+                }else if (f.getType().equals(float.class)){
+                    f.set(result, Float.parseFloat(existingValues[i+1]));
+                }else if (f.getType().equals(double.class)){
+                    f.set(result, Double.parseDouble(existingValues[i+1]));
+                }else if (f.getType().equals(short.class)){
+                    f.set(result, Short.parseShort(existingValues[i+1]));
+                }else if (f.getType().equals(int.class)){
+                    f.set(result, Integer.parseInt(existingValues[i+1]));
+                }
+            }
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+            throw new DataMapperException();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+            throw new DataMapperException();
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+            throw new DataMapperException();
+        }
+
+
+        return result;
+
     }
 
 
