@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/ArrayLinkedCompare/ArrayLinkedCompare.iml" filepath="$PROJECT_DIR$/ArrayLinkedCompare/ArrayLinkedCompare.iml" />
       <module fileurl="file://$PROJECT_DIR$/Borshch/Borshch.iml" filepath="$PROJECT_DIR$/Borshch/Borshch.iml" />
       <module fileurl="file://$PROJECT_DIR$/Company/Company.iml" filepath="$PROJECT_DIR$/Company/Company.iml" />
+      <module fileurl="file://$PROJECT_DIR$/DataMapper/DataMapper.iml" filepath="$PROJECT_DIR$/DataMapper/DataMapper.iml" />
       <module fileurl="file://$PROJECT_DIR$/DiagonalWords/DiagonalWords.iml" filepath="$PROJECT_DIR$/DiagonalWords/DiagonalWords.iml" />
       <module fileurl="file://$PROJECT_DIR$/Exception/Exception.iml" filepath="$PROJECT_DIR$/Exception/Exception.iml" />
       <module fileurl="file://$PROJECT_DIR$/Figures/Figures.iml" filepath="$PROJECT_DIR$/Figures/Figures.iml" />
@@ -25,6 +26,8 @@
       <module fileurl="file://$PROJECT_DIR$/HomeTask1/Task1.2/Task1.2.iml" filepath="$PROJECT_DIR$/HomeTask1/Task1.2/Task1.2.iml" />
       <module fileurl="file://$PROJECT_DIR$/HomeTask2/Task2.1/Task2.1.iml" filepath="$PROJECT_DIR$/HomeTask2/Task2.1/Task2.1.iml" />
       <module fileurl="file://$PROJECT_DIR$/HomeTask2/Task2.2/Task2.2.iml" filepath="$PROJECT_DIR$/HomeTask2/Task2.2/Task2.2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Test/Test.iml" filepath="$PROJECT_DIR$/Test/Test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Test1/Test1.iml" filepath="$PROJECT_DIR$/Test1/Test1.iml" />
       <module fileurl="file://$PROJECT_DIR$/Vagons/Vagons.iml" filepath="$PROJECT_DIR$/Vagons/Vagons.iml" />
       <module fileurl="file://$PROJECT_DIR$/Work1/Work1.iml" filepath="$PROJECT_DIR$/Work1/Work1.iml" />
     </modules>

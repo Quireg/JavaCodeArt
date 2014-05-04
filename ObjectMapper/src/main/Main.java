@@ -3,6 +3,8 @@ package main;
 import java.io.*;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
@@ -22,16 +24,11 @@ public class Main {
 
         save(user1);
         save(user1);
-        save(user1);
-        save(user1);
-        save(user1);
-        save(user1);
-        save(user1);
-        save(user1);
-        save(user1);
-        save(user1);
+        save(company);
         User u1 = (User) load(2, User.class);
         System.out.println(u1.getName() + " " + u1.getAge());
+        Company c1 = (Company) load(1, Company.class);
+        System.out.println(c1.getName() + " " + c1.getAddress());
 
     }
 
@@ -40,17 +37,21 @@ public class Main {
         File[] files = folder.listFiles();
         File tempFile = null;
         File confFile = null;
-//        if (files.length == 0) {
-//            tempFile = new File("C:\\javatemp\\" + obj.getClass().getSimpleName());
-//
-//        } else {
-        for (File file : files) {
-            if (obj.getClass().getSimpleName().equals(file.getName())) {
-                tempFile = file;
+        if (files.length == 0) {
+            tempFile = new File("C:\\javatemp\\" + obj.getClass().getSimpleName());
+            tempFile.createNewFile();
+            confFile = new File("C:\\javatemp\\" + obj.getClass().getSimpleName() + ".conf");
+            confFile.createNewFile();
 
-            } else {
-                tempFile = new File("C:\\javatemp\\" + obj.getClass().getSimpleName());
-                tempFile.createNewFile();
+        } else {
+            for (File file : files) {
+                if (obj.getClass().getSimpleName().equals(file.getName())) {
+                    tempFile = file;
+
+                } else {
+                    tempFile = new File("C:\\javatemp\\" + obj.getClass().getSimpleName());
+                    tempFile.createNewFile();
+                }
             }
         }
         for (File file : files) {
@@ -69,13 +70,13 @@ public class Main {
             }
         }
 //        }
-        int linecount = 0;
+
         int counter = 0;
         String line;
         BufferedReader bf = new BufferedReader(new FileReader(tempFile));
         while ((line = bf.readLine()) != null) {
             // Increment the count and find the index of the word
-            linecount++;
+
             int indexfound = line.indexOf("ID");
 
             // If greater than -1, means we found the word
@@ -108,12 +109,12 @@ public class Main {
     public static Object load(long id, Class incomingClass) throws IOException, IllegalAccessException, InstantiationException, NoSuchFieldException {
         File folder = new File("C:\\javatemp\\");
         File[] files = folder.listFiles();
-        File tempFile = null;
+        File dataFile = null;
         File confFile = null;
 
         for (File file : files) {
             if (incomingClass.getSimpleName().equals(file.getName())) {
-                tempFile = file;
+                dataFile = file;
                 break;
             } else {
                 System.out.println("\n" + "No classes was stored.");
@@ -129,9 +130,9 @@ public class Main {
             }
         }
 
-        ArrayList<String> futureFields = new ArrayList<>();
-        Scanner scanID = new Scanner(tempFile);
-        String line;
+
+        Scanner scanID = new Scanner(dataFile);
+
         String[] existingValues = null;
         while (scanID.hasNextLine()) {
             if (scanID.nextLine().startsWith("ID" + id)) {
@@ -151,21 +152,22 @@ public class Main {
 //            existingValues.add(lines[1]);
 //            existingFields.add(lines[0]);
 //        }
-
         Object result = incomingClass.newInstance();
-        for (int i = 1; i < arr.size(); i++) {
-            Field f = incomingClass.getDeclaredField(arr.get(i - 1));
+        for (int i = 0; i < arr.size(); i++) {
+            Field f = incomingClass.getDeclaredField(arr.get(i));
             f.setAccessible(true);
 
             if (f.getType().equals(String.class)) {
-                f.set(result, existingValues[i]);
+                f.set(result, existingValues[i+1]);
             } else if (f.getType().equals(Integer.class)){
-                f.set(result, Integer.parseInt(existingValues[i]));}
+                f.set(result, Integer.parseInt(existingValues[i+1]));}
             else if (f.getType().equals(int.class)){
-                f.set(result, Integer.parseInt(existingValues[i]));}
+                f.set(result, Integer.parseInt(existingValues[i+1]));}
         }
 
 
         return result;
     }
+
+
 }

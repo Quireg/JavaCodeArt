@@ -1,0 +1,3 @@
+directory = C:\\DataMapper\\
+configDirectory = C:\\DataMapper\\configs
+counters = C:\\DataMapper\\configs\\counters.txt
