@@ -15,12 +15,12 @@ public class Main {
         }
         User u1 = new User("Kolia", "Loboda", 22, 5000);
         Company c1 = new Company("intel", "Toronto");
-        Store s1 = new Store();
-        mapper.save(u1);
-        mapper.save(u1);
-        mapper.save(c1);
-        mapper.save(c1);
-        mapper.save(c1);
+//        Store s1 = new Store();
+//        mapper.save(u1);
+//        mapper.save(u1);
+//        mapper.save(c1);
+//        mapper.save(c1);
+//        mapper.save(c1);
         User u111 = (User)mapper.load(4, User.class);
         System.out.println(u111.getName()+u111.getLname()+u111.getAge()+u111.getSalary());
         System.out.println();
