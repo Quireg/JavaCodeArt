@@ -3,6 +3,7 @@ import exampleClasses.Store;
 import exampleClasses.User;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) throws  DataMapperException {
@@ -17,14 +18,23 @@ public class Main {
         Company c1 = new Company("intel", "Toronto");
         Store s1 = new Store();
 
+        Mapper.save(u1);
+        Mapper.save(u1);
+        Mapper.save(u1);
+        Mapper.save(u1);
+        Mapper.save(u1);
+        Mapper.save(u1);
+        Mapper.save(u1);
+        Mapper.save(u1);
         User u2 = new User("asdasdas", "asdasda", 22, 5000);
-
-        User u111 = (User)mapper.load(4, User.class);
-        System.out.println(u111.getName()+u111.getLname()+u111.getAge()+u111.getSalary());
-        System.out.println();
-        Company comp = (Company)mapper.load(1, Company.class);
-        System.out.println(comp.getName()+comp.getAddress());
-        Mapper.update(2, u2);
+//
+//        User u111 = (User)mapper.load(4, User.class);
+//        System.out.println(u111.getName()+u111.getLname()+u111.getAge()+u111.getSalary());
+//        System.out.println();
+//        Company comp = (Company)mapper.load(1, Company.class);
+//        System.out.println(comp.getName()+comp.getAddress());
+        ArrayList re =  Mapper.loadAll(User.class);
+        System.out.println("asd");
 
     }
 }

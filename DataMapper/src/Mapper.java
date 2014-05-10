@@ -14,7 +14,7 @@ public class Mapper implements DataMapper {
 
     public Mapper() throws IOException {
         Properties props = new Properties();
-        props.load(new FileInputStream("C:\\Users\\Quireg\\IdeaProjects\\JavaCodeArt\\DataMapper\\src\\config.txt"));
+        props.load(new FileInputStream("C:\\Users\\Admin\\IdeaProjects\\JavaCodeArt\\DataMapper\\src\\config.txt"));
         this.directory = props.getProperty("directory");
         this.configDirectory = props.getProperty("configDirectory");
         this.counters = props.getProperty("counters");
@@ -261,8 +261,86 @@ public class Mapper implements DataMapper {
     }
 
 
-    public static Object loadAll(Class clazz) {
-        return null;
+    public static ArrayList<Object> loadAll(Class clazz) throws DataMapperException {
+        File dataFile = getDataFile(clazz, false);
+        File confFile = getConfFile(clazz, false);
+        if (dataFile == null | confFile == null) {
+            System.out.println("No classes were stored");
+            return null;
+        }
+
+
+        Scanner scanID = null;
+        try {
+            scanID = new Scanner(dataFile);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            throw new DataMapperException();
+        }
+
+        String[] existingValues = null;
+        String idLine;
+        ArrayList<Object> result = new ArrayList<>();
+        Object resultObject = null;
+        while (scanID.hasNextLine()) {
+            idLine = scanID.nextLine();
+
+                existingValues = idLine.split(":");
+
+            Scanner scanner = null;
+            try {
+                scanner = new Scanner(confFile);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+                throw new DataMapperException();
+            }
+            ArrayList<String> arr = new ArrayList<>();
+            while (scanner.hasNextLine()) {
+                arr.add(scanner.nextLine());
+            }
+
+
+            try {
+                resultObject = clazz.newInstance();
+                for (int i = 0; i < arr.size(); i++) {
+                    Field f = clazz.getDeclaredField(arr.get(i));
+                    f.setAccessible(true);
+
+                    if (f.getType().equals(String.class)) {
+                        f.set(resultObject, existingValues[i + 1]);
+                    } else if (f.getType().equals(Integer.class)) {
+                        f.set(resultObject, Integer.parseInt(existingValues[i + 1]));
+                    } else if (f.getType().equals(long.class)) {
+                        f.set(resultObject, Long.parseLong(existingValues[i + 1]));
+                    } else if (f.getType().equals(float.class)) {
+                        f.set(resultObject, Float.parseFloat(existingValues[i + 1]));
+                    } else if (f.getType().equals(double.class)) {
+                        f.set(resultObject, Double.parseDouble(existingValues[i + 1]));
+                    } else if (f.getType().equals(short.class)) {
+                        f.set(resultObject, Short.parseShort(existingValues[i + 1]));
+                    } else if (f.getType().equals(int.class)) {
+                        f.set(resultObject, Integer.parseInt(existingValues[i + 1]));
+                    }
+                }
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+                throw new DataMapperException();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+                throw new DataMapperException();
+            } catch (NoSuchFieldException e) {
+                e.printStackTrace();
+                throw new DataMapperException();
+            }
+
+
+            result.add(resultObject);
+        }
+
+
+
+
+        return result;
     }
 
 
