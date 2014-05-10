@@ -1,8 +1,12 @@
 
 public interface DataMapper {
-    public void save(Object obj) throws DataMapperException;
-    public Object load(long id, Class clazz) throws DataMapperException;
-    public Object loadAll(Class clazz);
-    public void update(long id, Object obj);
+    public static void save(Object obj) throws DataMapperException{};
+    public static Object load(long id, Class clazz) throws DataMapperException{
+        return null;
+    };
+    public static Object loadAll(Class clazz){
+        return null;
+    };
+    public static void update(long id, Object obj){};
 
 }

@@ -8,9 +8,9 @@ public class Mapper implements DataMapper {
 
     public static final String DATA_EXT = ".data";
     public static final String CONF_EXT = ".conf";
-    String directory;
-    String configDirectory;
-    String counters;
+    static String directory;
+    static String configDirectory;
+    static String counters;
 
     public Mapper() throws IOException {
         Properties props = new Properties();
@@ -21,7 +21,7 @@ public class Mapper implements DataMapper {
     }
 
 
-    private File getConfFile(Class clazz, boolean create) throws DataMapperException {
+    private static File getConfFile(Class clazz, boolean create) throws DataMapperException {
         File configFolder = new File(configDirectory);
         File[] configFiles = configFolder.listFiles();
 
@@ -53,7 +53,7 @@ public class Mapper implements DataMapper {
         return null;
     }
 
-    private File getDataFile(Class clazz, boolean create) throws DataMapperException {
+    private static File getDataFile(Class clazz, boolean create) throws DataMapperException {
         File dataFolder = new File(directory);
         File[] dataFiles = dataFolder.listFiles();
         if (dataFiles == null && create) {
@@ -86,7 +86,7 @@ public class Mapper implements DataMapper {
 
     }
 
-    private int getLastCounter(Class clazz) throws DataMapperException {
+    private static int getLastCounter(Class clazz) throws DataMapperException {
         try {
             File countersFile = new File(counters);
             if (countersFile.exists()) {
@@ -121,7 +121,7 @@ public class Mapper implements DataMapper {
         return 0;
     }
 
-    private void incrementCounter(Class clazz) throws DataMapperException {
+    private static void incrementCounter(Class clazz) throws DataMapperException {
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(counters));
             String line;
@@ -141,15 +141,17 @@ public class Mapper implements DataMapper {
         }
     }
 
-    public void save(Object obj) throws DataMapperException {
+
+    public static void save(Object obj) throws DataMapperException {
 
         File dataFile = getDataFile(obj.getClass(), true);
         File confFile = getConfFile(obj.getClass(), true);
-        int counter = getLastCounter(obj.getClass());
-        FileWriter fileWriter = null;
+        long counter = getLastCounter(obj.getClass());
+        FileWriter fileWriter;
+        long currentID = (counter + 1);
         try {
             fileWriter = new FileWriter(dataFile, true);
-            fileWriter.write("ID" + (counter + 1));
+            fileWriter.write("ID" + currentID);
             Scanner scanner = new Scanner(confFile);
             ArrayList<String> arr = new ArrayList<>();
             while (scanner.hasNextLine()) {
@@ -171,11 +173,13 @@ public class Mapper implements DataMapper {
             e.printStackTrace();
         }
         incrementCounter(obj.getClass());
+        EntityCache.saveToCache(currentID, obj);
 
     }
 
 
-    public Object load(long id, Class clazz) throws DataMapperException {
+    public static Object load(long id, Class clazz) throws DataMapperException {
+
         File dataFile = getDataFile(clazz, false);
         File confFile = getConfFile(clazz, false);
         if(dataFile == null | confFile == null){
@@ -251,12 +255,53 @@ public class Mapper implements DataMapper {
     }
 
 
-    public Object loadAll(Class clazz) {
+    public static Object loadAll(Class clazz) {
         return null;
     }
 
 
-    public void update(long id, Object obj) {
+    public static void update(long id, Object obj) throws DataMapperException {
+        File dataFile = getDataFile(obj.getClass(), true);
+        File confFile = getConfFile(obj.getClass(), true);
+        String futureObject = "";
+        try {
+            Scanner scanner = new Scanner(confFile);
+            ArrayList<String> arr = new ArrayList<>();
+            while (scanner.hasNextLine()) {
+                arr.add(scanner.nextLine());
+            }
+            for (String str : arr) {
+                Field fld = obj.getClass().getDeclaredField(str);
+                fld.setAccessible(true);
+                futureObject = futureObject + ":" +fld.get(obj);
 
+            }
+
+
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(dataFile));
+            String line;
+            String input = "";
+            while ((line = bufferedReader.readLine()) != null) input += line + '\n';
+              if(line.startsWith(String.valueOf(id))){
+                  line.replace(id + "\n", id + "" + futureObject + "\n") ;
+              }
+
+
+
+            FileOutputStream File = new FileOutputStream(dataFile);
+            File.write(input.getBytes());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new DataMapperException();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        }
     }
+
 }
