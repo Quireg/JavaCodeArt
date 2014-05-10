@@ -31,12 +31,14 @@ public class Mapper implements DataMapper {
 
         }
 
-
-        for (File file : configFiles) {
-            if (file.getName().equals(clazz.getSimpleName() + CONF_EXT)) {
-                return file;
+        if (configFiles != null) {
+            for (File file : configFiles) {
+                if (file.getName().equals(clazz.getSimpleName() + CONF_EXT)) {
+                    return file;
+                }
             }
-        }if(create) {
+        }
+        if (create) {
             File confFile = new File(configDirectory + clazz.getSimpleName() + CONF_EXT);
             try {
                 confFile.createNewFile();
@@ -71,7 +73,7 @@ public class Mapper implements DataMapper {
                     return file;
                 }
             }
-            if(create) {
+            if (create) {
                 File dataFile = new File(directory + clazz.getSimpleName() + DATA_EXT);
                 try {
                     dataFile.createNewFile();
@@ -107,9 +109,11 @@ public class Mapper implements DataMapper {
 
             countersFile.createNewFile();
             BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(countersFile, true));
-            bufferedWriter.write(clazz.getClass().getSimpleName() + ":" + 0 + "\n");
+            bufferedWriter.write(clazz.getSimpleName() + ":" + 0 + "\n");
             bufferedWriter.close();
+
             return 0;
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
 
@@ -182,7 +186,7 @@ public class Mapper implements DataMapper {
 
         File dataFile = getDataFile(clazz, false);
         File confFile = getConfFile(clazz, false);
-        if(dataFile == null | confFile == null){
+        if (dataFile == null | confFile == null) {
             System.out.println("No classes were stored");
             return null;
         }
@@ -197,9 +201,11 @@ public class Mapper implements DataMapper {
         }
 
         String[] existingValues = null;
+        String idLine;
         while (scanID.hasNextLine()) {
-            if (scanID.nextLine().startsWith("ID" + id)) {
-                existingValues = scanID.nextLine().split(":");
+            idLine = scanID.nextLine();
+            if (idLine.startsWith("ID" + id)) {
+                existingValues = idLine.split(":");
             }
         }
 
@@ -208,7 +214,7 @@ public class Mapper implements DataMapper {
             scanner = new Scanner(confFile);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-            throw  new DataMapperException();
+            throw new DataMapperException();
         }
         ArrayList<String> arr = new ArrayList<>();
         while (scanner.hasNextLine()) {
@@ -223,19 +229,19 @@ public class Mapper implements DataMapper {
                 f.setAccessible(true);
 
                 if (f.getType().equals(String.class)) {
-                    f.set(result, existingValues[i+1]);
-                } else if (f.getType().equals(Integer.class)){
-                    f.set(result, Integer.parseInt(existingValues[i+1]));
-                }else if (f.getType().equals(long.class)){
-                    f.set(result, Long.parseLong(existingValues[i+1]));
-                }else if (f.getType().equals(float.class)){
-                    f.set(result, Float.parseFloat(existingValues[i+1]));
-                }else if (f.getType().equals(double.class)){
-                    f.set(result, Double.parseDouble(existingValues[i+1]));
-                }else if (f.getType().equals(short.class)){
-                    f.set(result, Short.parseShort(existingValues[i+1]));
-                }else if (f.getType().equals(int.class)){
-                    f.set(result, Integer.parseInt(existingValues[i+1]));
+                    f.set(result, existingValues[i + 1]);
+                } else if (f.getType().equals(Integer.class)) {
+                    f.set(result, Integer.parseInt(existingValues[i + 1]));
+                } else if (f.getType().equals(long.class)) {
+                    f.set(result, Long.parseLong(existingValues[i + 1]));
+                } else if (f.getType().equals(float.class)) {
+                    f.set(result, Float.parseFloat(existingValues[i + 1]));
+                } else if (f.getType().equals(double.class)) {
+                    f.set(result, Double.parseDouble(existingValues[i + 1]));
+                } else if (f.getType().equals(short.class)) {
+                    f.set(result, Short.parseShort(existingValues[i + 1]));
+                } else if (f.getType().equals(int.class)) {
+                    f.set(result, Integer.parseInt(existingValues[i + 1]));
                 }
             }
         } catch (InstantiationException e) {
