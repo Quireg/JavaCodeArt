@@ -21,7 +21,7 @@ public class Mapper implements DataMapper {
     }
 
 
-    private static File getConfFile(Class clazz, boolean create) throws DataMapperException {
+    private File getConfFile(Class clazz, boolean create) throws DataMapperException {
         File configFolder = new File(configDirectory);
         File[] configFiles = configFolder.listFiles();
 
@@ -55,7 +55,7 @@ public class Mapper implements DataMapper {
         return null;
     }
 
-    private static File getDataFile(Class clazz, boolean create) throws DataMapperException {
+    private File getDataFile(Class clazz, boolean create) throws DataMapperException {
         File dataFolder = new File(directory);
         File[] dataFiles = dataFolder.listFiles();
         if (dataFiles == null && create) {
@@ -88,7 +88,7 @@ public class Mapper implements DataMapper {
 
     }
 
-    private static int getLastCounter(Class clazz) throws DataMapperException {
+    private  int getLastCounter(Class clazz) throws DataMapperException {
         try {
             File countersFile = new File(counters);
             if (countersFile.exists()) {
@@ -125,7 +125,7 @@ public class Mapper implements DataMapper {
         return 0;
     }
 
-    private static void incrementCounter(Class clazz) throws DataMapperException {
+    private  void incrementCounter(Class clazz) throws DataMapperException {
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(counters));
             String line;
@@ -146,7 +146,7 @@ public class Mapper implements DataMapper {
     }
 
 
-    public static void save(Object obj) throws DataMapperException {
+    public  void save(Object obj) throws DataMapperException {
 
         File dataFile = getDataFile(obj.getClass(), true);
         File confFile = getConfFile(obj.getClass(), true);
@@ -182,7 +182,7 @@ public class Mapper implements DataMapper {
     }
 
 
-    public static Object load(long id, Class clazz) throws DataMapperException {
+    public  Object load(long id, Class clazz) throws DataMapperException {
 
         File dataFile = getDataFile(clazz, false);
         File confFile = getConfFile(clazz, false);
@@ -261,7 +261,7 @@ public class Mapper implements DataMapper {
     }
 
 
-    public static ArrayList<Object> loadAll(Class clazz) throws DataMapperException {
+    public ArrayList<Object> loadAll(Class clazz) throws DataMapperException {
         File dataFile = getDataFile(clazz, false);
         File confFile = getConfFile(clazz, false);
         if (dataFile == null | confFile == null) {
@@ -344,7 +344,7 @@ public class Mapper implements DataMapper {
     }
 
 
-    public static void update(long id, Object obj) throws DataMapperException {
+    public  void update(long id, Object obj) throws DataMapperException {
         File dataFile = getDataFile(obj.getClass(), true);
         File confFile = getConfFile(obj.getClass(), true);
         String futureObject = "";
@@ -374,17 +374,14 @@ public class Mapper implements DataMapper {
 
             FileOutputStream File = new FileOutputStream(dataFile);
             File.write(input.getBytes());
-        } catch (FileNotFoundException e) {
+        } catch (IllegalAccessException | IOException e) {
             e.printStackTrace();
 
 
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw new DataMapperException();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
+            throw new DataMapperException();
+
         }
     }
 

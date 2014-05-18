@@ -1,6 +1,6 @@
-package exampleClasses;
+package source;
 
-@Entity(name = "Big_User")
+
 public class User {
     private String name;
     private String lname;

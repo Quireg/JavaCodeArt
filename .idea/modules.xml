@@ -8,6 +8,7 @@
       <module fileurl="file://$PROJECT_DIR$/DataMapper/DataMapper.iml" filepath="$PROJECT_DIR$/DataMapper/DataMapper.iml" />
       <module fileurl="file://$PROJECT_DIR$/Database/Database.iml" filepath="$PROJECT_DIR$/Database/Database.iml" />
       <module fileurl="file://$PROJECT_DIR$/DiagonalWords/DiagonalWords.iml" filepath="$PROJECT_DIR$/DiagonalWords/DiagonalWords.iml" />
+      <module fileurl="file://$PROJECT_DIR$/DynamicClassLoad/DynamicClassLoad.iml" filepath="$PROJECT_DIR$/DynamicClassLoad/DynamicClassLoad.iml" />
       <module fileurl="file://$PROJECT_DIR$/Exception/Exception.iml" filepath="$PROJECT_DIR$/Exception/Exception.iml" />
       <module fileurl="file://$PROJECT_DIR$/Figures/Figures.iml" filepath="$PROJECT_DIR$/Figures/Figures.iml" />
       <module fileurl="file://$PROJECT_DIR$/HomeTask1/HomeTask1.iml" filepath="$PROJECT_DIR$/HomeTask1/HomeTask1.iml" />
