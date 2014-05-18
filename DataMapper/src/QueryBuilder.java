@@ -1,3 +1,5 @@
+import exampleClasses.Entity;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -5,7 +7,7 @@ import java.util.Scanner;
 
 public class QueryBuilder {
     public static String buildInsertSql(Object o) throws FileNotFoundException {
-       String tableName = o.getClass().getSimpleName().toLowerCase();
+       String tableName = o.getClass().getAnnotation(Entity.class).name();
         File file = new File("C:\\Users\\Admin\\IdeaProjects\\JavaCodeArt\\DataMapper\\src\\UserDb.conf");
         Scanner scanner = new Scanner(file);
         ArrayList<String> arr = new ArrayList<>();

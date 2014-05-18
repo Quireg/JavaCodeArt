@@ -2,9 +2,13 @@ package exampleClasses;
 
 @Entity(name = "Big_User")
 public class User {
+    @Column(name = "first_name")
     private String name;
+    @Column(name = "last_name")
     private String lname;
+    @Column(name = "age")
     private int age;
+    @Column(name = "salary")
     private int salary;
 
     public User() {
